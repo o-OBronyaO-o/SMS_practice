@@ -6,6 +6,12 @@ public class Student {
     private String name;
     private int age;
     private String major;
+    // 增加 Course 数组字段（假设最多选 5 门课）
+    private Course[] courses = new Course[6];
+    private int courseCount = 0; // 记录当前已经选了几门课
+    private int mandatoryCount = 0; // 必考数（最多3）
+    private int firstCount = 0;     // 首选数（最多1）
+    private int secondCount = 0;
 
     // 2. 无参构造（如果你只写了有参构造，这个默认的就会消失）
     public Student() {
@@ -77,5 +83,47 @@ public class Student {
     public void register(com.score.service.ScoreService service) {
         // this 就是当前调用这个方法的对象（比如 s1 或 s2）
         service.addStudent(this);
+    }
+
+    // 添加课程的方法
+    public void addCourse(Course course) {
+        String type = course.getCourseType();
+
+        // 1. 校验必考（3门）
+        if ("必考".equals(type)) {
+            if (mandatoryCount >= 3) {
+                System.out.println("❌ 选课失败：必考科目已经满3门了！");
+                return;
+            }
+            mandatoryCount++;
+        }
+        // 2. 校验首选（1门）
+        else if ("首选".equals(type)) {
+            if (firstCount >= 1) {
+                System.out.println("❌ 选课失败：首选科目（物理/历史）只能选1门！");
+                return;
+            }
+            firstCount++;
+        }
+        // 3. 校验再选（2门）
+        else if ("再选".equals(type)) {
+            if (secondCount >= 2) {
+                System.out.println("❌ 选课失败：再选科目只能选2门！");
+                return;
+            }
+            secondCount++;
+        } else {
+            System.out.println("❌ 未知的课程类别！");
+            return;
+        }
+
+        // 校验通过，存入数组
+        if (courseCount < courses.length) {
+            courses[courseCount] = course;
+            courseCount++;
+            System.out.println("✅ 选课成功：" + this.name + " 选了 [" + type + "] " + course.getCourseName());
+        } else {
+            System.out.println("❌ 选课失败：总课程数量已达上限！");
+        }
     }
 }

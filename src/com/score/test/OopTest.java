@@ -14,7 +14,7 @@ public class OopTest {
 
         System.out.println("\n===== 2. 体验封装校验（setter） =====");
         s1.setAge(-5); // 会被 setter 拦截
-        Course c1 = new Course("高等数学", 85.0, -10.0); // 期末成绩会被拦截并重置为0
+        Course c1 = new Course("高等数学", 85.0, -10.0,"must"); // 期末成绩会被拦截并重置为0
 
         System.out.println("\n===== 3. 体验引用传递的坑 =====");
         // s3 拿的是 s1 的钥匙，指向同一个内存地址

@@ -22,7 +22,7 @@ public class MainTest {
         // 在另一个类里直接读取静态变量
         System.out.println("最终全校统计录入数: " + com.score.util.SystemConfig.getTotalRecordCount());
 
-        // 1. 你可以试试在这里写 s1.studentId = "123";
+       // s1.studentId = "123";
         // 会报错！因为 studentId 是 private 的，这就是跨包的“最小可见原则”。
     }
 }

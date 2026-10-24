@@ -4,9 +4,11 @@ public class Course {
     private String courseName;
     private double dailyScore;
     private double finalScore;
+    private String courseType;
 
-    public Course(String courseName, double dailyScore, double finalScore) {
+    public Course(String courseName, double dailyScore, double finalScore, String courseType) {
         this.courseName = courseName;
+        this.courseType = courseType;
         setDailyScore(dailyScore);
         setFinalScore(finalScore);
     }
@@ -37,4 +39,6 @@ public class Course {
     public double getTotal() {
         return dailyScore * 0.3 + finalScore * 0.7;
     }
+
+    public String getCourseType() { return courseType; }
 }
