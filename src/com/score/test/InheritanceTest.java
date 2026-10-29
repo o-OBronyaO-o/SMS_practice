@@ -27,8 +27,8 @@ public class InheritanceTest {
         System.out.println("\n===== 6. 账号体系与成绩实体合流 =====");
         // 造一个实验五的成绩实体
         Student scoreStudent = new Student("20230101", "赵六", 20, "计算机");
-        Course c1 = new Course("高数", 85, 90,"must");
-        scoreStudent.addCourse(c1); // (假设实验五加了 addCourse 方法)
+        Course c1 = new Course("高数", 85, 90, Course.TYPE_MANDATORY);
+        scoreStudent.addCourse(c1); // Student 已定义 addCourse 方法，此处选课已实际生效
 
         // 管理员绑定该学生
         AdminUser admin = new AdminUser("AD01", "教务主任", "root");

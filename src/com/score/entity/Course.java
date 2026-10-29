@@ -1,6 +1,15 @@
 package com.score.entity;
 
 public class Course {
+    // 课程类型常量（集中管理，避免魔法字符串散落）
+    public static final String TYPE_MANDATORY = "必考";
+    public static final String TYPE_FIRST = "首选";
+    public static final String TYPE_SECOND = "再选";
+
+    // 普通课程总评权重（单一权威来源，Course 与 NormalRule 均引用此处）
+    public static final double DAILY_WEIGHT = 0.3;
+    public static final double FINAL_WEIGHT = 0.7;
+
     private String courseName;
     private double dailyScore;
     private double finalScore;
@@ -35,9 +44,9 @@ public class Course {
         }
     }
 
-    // 计算总评成绩
+    // 计算总评成绩（权重引用本类常量）
     public double getTotal() {
-        return dailyScore * 0.3 + finalScore * 0.7;
+        return dailyScore * DAILY_WEIGHT + finalScore * FINAL_WEIGHT;
     }
 
     public String getCourseType() { return courseType; }

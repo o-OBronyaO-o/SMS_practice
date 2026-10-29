@@ -1,6 +1,8 @@
 package com.score;
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
+import com.score.util.SystemConfig;
 
 public class ScoreMenu {
     public static void main(String[] args) {
@@ -14,7 +16,15 @@ public class ScoreMenu {
             System.out.println("0. 退出系统");
             System.out.print("请输入您的选择：");
 
-            int choice = scanner.nextInt();
+            int choice;
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("输入有误，请输入数字");
+                scanner.next(); // 丢弃非法输入，避免死循环
+                System.out.println("========================================");
+                continue;
+            }
 
 
             switch (choice) {
@@ -31,7 +41,16 @@ public class ScoreMenu {
                     boolean inWindow = windowInput.equalsIgnoreCase("T");
 
                     System.out.print("请输入单科成绩(0-100): ");
-                    double score = scanner.nextDouble();
+                    double score;
+                    while (true) {
+                        try {
+                            score = scanner.nextDouble();
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.print("输入有误，成绩需为数字，请重新输入: ");
+                            scanner.next(); // 丢弃非法输入
+                        }
+                    }
 
                     // 下面的单层 if 短路逻辑
                     if (isLogin && inWindow && score >= 0 && score <= 100) {
@@ -63,8 +82,8 @@ public class ScoreMenu {
 
                         System.out.println("第 " + (i + 1) + " 名学生成绩: " + currentScore);
 
-                        // continue 体验：如果及格，跳过本次循环，不执行下面的补考逻辑
-                        if (currentScore >= 60) {
+                        // continue 体验：及格则直接跳过本次循环，不执行下面的 failCount 计数
+                        if (currentScore >= SystemConfig.PASS_LINE) {
                             continue;
                         }
 

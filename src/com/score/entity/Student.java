@@ -69,8 +69,8 @@ public class Student {
 
         // 3. 强转成 Student 进行比较
         Student other = (Student) obj;
-        // 4. 比较学号内容是否相同
-        return this.studentId.equals(other.studentId);
+        // 4. 比较学号内容是否相同（用 Objects.equals 防止学号为 null 时 NPE）
+        return java.util.Objects.equals(this.studentId, other.studentId);
     }
 
     // 3. 重写 hashCode（Java 规矩：重写了 equals 就必须重写 hashCode）
@@ -90,7 +90,7 @@ public class Student {
         String type = course.getCourseType();
 
         // 1. 校验必考（3门）
-        if ("必考".equals(type)) {
+        if (Course.TYPE_MANDATORY.equals(type)) {
             if (mandatoryCount >= 3) {
                 System.out.println("❌ 选课失败：必考科目已经满3门了！");
                 return;
@@ -98,7 +98,7 @@ public class Student {
             mandatoryCount++;
         }
         // 2. 校验首选（1门）
-        else if ("首选".equals(type)) {
+        else if (Course.TYPE_FIRST.equals(type)) {
             if (firstCount >= 1) {
                 System.out.println("❌ 选课失败：首选科目（物理/历史）只能选1门！");
                 return;
@@ -106,7 +106,7 @@ public class Student {
             firstCount++;
         }
         // 3. 校验再选（2门）
-        else if ("再选".equals(type)) {
+        else if (Course.TYPE_SECOND.equals(type)) {
             if (secondCount >= 2) {
                 System.out.println("❌ 选课失败：再选科目只能选2门！");
                 return;
