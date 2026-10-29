@@ -1,9 +1,9 @@
 package com.score.entity;
 
 public class User {
-    private String id;
-    private String name;
-    private String pwd;
+    private final String id;
+    private final String name;
+    private final String pwd;
 
     public User(String id,String name,String pwd){
         this.id = id;
